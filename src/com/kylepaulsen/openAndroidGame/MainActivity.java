@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
         gameView = new GraphicsView(this);
         
         //Set the graphics view as the main content view.
-        //Note that R.layout.main is now no longer used.
+        //Note that R.layout.main is now no longer used..
         setContentView(gameView);
     }
 }
