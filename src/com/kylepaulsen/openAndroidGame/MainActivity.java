@@ -1,5 +1,5 @@
 package com.kylepaulsen.openAndroidGame;
-//hoobey doobey
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
