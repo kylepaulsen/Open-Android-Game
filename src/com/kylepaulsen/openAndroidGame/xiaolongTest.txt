@@ -1,3 +1,0 @@
-testing Eclipse+EGit.
-
-let's see...
