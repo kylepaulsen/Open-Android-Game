@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.view.View;
 
 /**
  * 
@@ -39,10 +40,10 @@ public class GraphicsView extends SurfaceView implements Callback {
 		graphicsHolder = this.getHolder();
 		graphicsHolder.addCallback(this);
 
-			
-		
 		cFrame = new Canvas();
-	   
+		
+		//keeps the screen on while playing the game.
+		this.setKeepScreenOn(true);
 
 	}
 
@@ -66,6 +67,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 				
 			}catch(InterruptedException e){}
 		}
+		this.setKeepScreenOn(false);
 	}
 	
 	//Here is the main drawing method. 

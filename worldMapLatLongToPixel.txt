@@ -1,0 +1,6 @@
+world_map.jpg lat long to pixel functions:
+
+lat / -0.06698049772278683227848101265823 + 1351 = pxl lat
+long / 0.06657861654370824053452115812918 + 2697 = pxl long
+
+

@@ -12,6 +12,7 @@ public final class R {
     }
     public static final class drawable {
         public static final int icon=0x7f020000;
+        public static final int world_map=0x7f020001;
     }
     public static final class layout {
         public static final int main=0x7f030000;
