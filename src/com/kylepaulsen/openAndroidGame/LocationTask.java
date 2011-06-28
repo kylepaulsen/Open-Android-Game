@@ -18,13 +18,20 @@ public class LocationTask {
 	
 	public LocationTask(Context con){
 		this.context = con;
+		
+		//just some default values...
+		this.latitude = 3000;
+		this.longitude = 3000;
 	}
 	
 	/*
 	 * The init function tries to get the last known location from the best
 	 * provider. These settings might be changed later.
+	 * THIS MUST BE CALLED BEFORE ANY OTHER METHOD IN HERE.
 	 */
 	public void init(){
+		//I might not be doing something right because the location 
+		//data isn't as close as I expected it to be.
 		
 		LocationManager lm = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
@@ -63,6 +70,10 @@ public class LocationTask {
 		 * seed. Keep in mind that we must multiply the lat_num by 10000 to avoid
 		 * digit collision during concatenation. (long_num will never be more than 7200)
 		 */
+		if(this.latitude == 3000){
+			Toast.makeText(this.context, "LocationTask was used without an init() call.", Toast.LENGTH_LONG).show();
+			return 0;
+		}
 		
 		long lat_num = (long) Math.floor((this.latitude+90)*20)*10000;
 		long long_num = (long) Math.floor((this.longitude+180)*20);
@@ -71,10 +82,18 @@ public class LocationTask {
 	}
 	
 	public double getLongitude(){
+		if(this.longitude == 3000){
+			Toast.makeText(this.context, "LocationTask was used without an init() call.", Toast.LENGTH_LONG).show();
+			return 0;
+		}
 		return this.longitude;		
 	}
 	
 	public double getLatitude(){
+		if(this.latitude == 3000){
+			Toast.makeText(this.context, "LocationTask was used without an init() call.", Toast.LENGTH_LONG).show();
+			return 0;
+		}
 		return this.latitude;		
 	}
 		

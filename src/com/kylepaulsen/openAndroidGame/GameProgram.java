@@ -33,7 +33,7 @@ public class GameProgram extends Thread {
 		this.currentSeed = this.locTask.makeSeedFromLocation();
 		
 		//generate a world in 2d array
-		world = new World(this.currentSeed); 
+		world = new World(context, this.currentSeed, this.locTask.getLatitude(), this.locTask.getLongitude()); 
 		world.generateWorld();
 		
 		//tile the world with sprites
