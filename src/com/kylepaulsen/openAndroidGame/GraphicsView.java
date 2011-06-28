@@ -35,7 +35,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 	
 	public GraphicsView(Context context) {
 		super(context);
-		prog = new GameProgram(this);
+		prog = new GameProgram(this, context);
 		
 		graphicsHolder = this.getHolder();
 		graphicsHolder.addCallback(this);

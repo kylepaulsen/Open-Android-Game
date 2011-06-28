@@ -11,10 +11,10 @@ import java.util.Random;
 
 public class World {
 	private int worldArr[][];
-	private int worldSeed;
+	private long worldSeed;
 	private Random ran;
 	
-	public World(int seed){
+	public World(long seed){
 		//not sure what goes here yet.
 		this.worldSeed = seed;
 		this.ran = new Random(this.worldSeed);

@@ -1,6 +1,11 @@
 package com.kylepaulsen.openAndroidGame;
 
+import android.content.Context;
 import android.graphics.Canvas;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.widget.Toast;
 
 /*
  * A lot of this code was inspired from 
@@ -14,18 +19,26 @@ public class GameProgram extends Thread {
 	private boolean running = false;
 	private Camera cam;
 	private World world;
+	private LocationTask locTask; 
+	private long currentSeed;
 	
-	public GameProgram(GraphicsView view){
+	private double latitude, longitude; 
+	
+	public GameProgram(GraphicsView view, Context context){
 		this.gv = view;
 		
+		this.locTask = new LocationTask(context);
+		this.locTask.init();
+		
+		this.currentSeed = this.locTask.makeSeedFromLocation();
+		
 		//generate a world in 2d array
-		world = new World(0); 
+		world = new World(this.currentSeed); 
 		world.generateWorld();
 		
 		//tile the world with sprites
 		cam = new Camera(gv);
-		cam.loadWorld(world); 
-		
+		cam.loadWorld(world);
 	}
 
 	@Override
