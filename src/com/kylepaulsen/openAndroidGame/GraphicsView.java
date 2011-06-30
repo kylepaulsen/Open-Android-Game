@@ -66,18 +66,15 @@ public class GraphicsView extends SurfaceView implements Callback {
 
 	}
 
-	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 		
 	}
 
-	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		prog.setRunning(true);
 		prog.start();
 	}
 
-	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		prog.setRunning(false);
 		while(prog.isAlive()){
