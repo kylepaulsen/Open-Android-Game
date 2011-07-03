@@ -41,6 +41,10 @@ public class MainActivity extends Activity {
         
         //Set the graphics view as the main content view.
         //Note that R.layout.main is now no longer used..
+      
         setContentView(gameView);
+        
+        //test bouncing view
+        //setContentView(new BouncingViewTest(this));
     }
 }

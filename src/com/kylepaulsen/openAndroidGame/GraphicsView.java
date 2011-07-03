@@ -27,7 +27,6 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
-import android.view.View;
 
 /**
  * 
@@ -49,6 +48,8 @@ public class GraphicsView extends SurfaceView implements Callback {
 	//Game loop and thread.
 	private GameProgram prog;
 	
+
+	
 	//temp
 	private int x = 0;
 	
@@ -60,6 +61,9 @@ public class GraphicsView extends SurfaceView implements Callback {
 		graphicsHolder.addCallback(this);
 
 		cFrame = new Canvas();
+		
+		// initialize a player --XC July2
+		Player player = new Player(Color.GREEN);
 		
 		//keeps the screen on while playing the game.
 		this.setKeepScreenOn(true);
@@ -95,6 +99,8 @@ public class GraphicsView extends SurfaceView implements Callback {
 		p.setStyle(Paint.Style.FILL);
 		p.setColor(Color.WHITE);
 		
+
+		
 		if(cBuffer == null){
 			//if the buffer is new, set it up and set it to draw with the cFrame.
 			//ARGB_8888 means each pixel uses 4 bytes.
@@ -118,7 +124,9 @@ public class GraphicsView extends SurfaceView implements Callback {
 		//draw directly to canvas
 		p.setColor(Color.RED);
 		canvas.drawRect(x, 0, x+50, 50, p);
-		x++;			
+		x++;	
+		
+
 	}
 	
 	//buffer getter
@@ -130,4 +138,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 	public void setBuffer(Canvas b){
 		this.cFrame = b;
 	}
+
+	
+	
 }
