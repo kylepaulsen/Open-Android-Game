@@ -42,9 +42,8 @@ public class World {
 		this.con = context;
 		this.worldSeed = seed;
 		this.ran = new Random(this.worldSeed);
-		worldArr = new int[500][500];
+		worldArr = new int[Constants.WORLD_SIZE][Constants.WORLD_SIZE];
 		
-		//a really crappy way of getting the long, lat coords back.
 		this.lat = latitude;
 		this.lon = longitude;
 	}
@@ -52,10 +51,24 @@ public class World {
 	public void generateWorld(){
 		//This method will use the var ran to generate a world into the
 		//worldArr. I'll get to this later..
-		Biome biome = new Biome(this.con, this.lat, this.lon);
-		biome.anazlyze();
+		
+		//Biome biome = new Biome(this.con, this.lat, this.lon);
+		//biome.anazlyze();
 		
 		//access biome vars to generate map....
 		
+		/*
+		 * 0 = grass
+		 * 1 = water
+		 * 
+		 * 
+		 */
+		
+		
+		
+	}
+	
+	public int[][] getWorldArr(){
+		return this.worldArr;
 	}
 }

@@ -24,6 +24,7 @@ import android.graphics.Canvas;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 import android.widget.Toast;
 
 /*
@@ -40,6 +41,7 @@ public class GameProgram extends Thread {
 	private World world;
 	private LocationTask locTask; 
 	private long currentSeed;
+	private double xx=0.0,yy=0.0;
 	
 	private double latitude, longitude; 
 	
@@ -56,8 +58,7 @@ public class GameProgram extends Thread {
 		world.generateWorld();
 		
 		//tile the world with sprites
-		cam = new Camera(gv);
-		cam.loadWorld(world);
+		this.cam = new Camera(gv, world, 0.1, 0.0);
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class GameProgram extends Thread {
 			
 			//Next frames' Game Logic and stuff goes here.
 			startTime = System.currentTimeMillis();
-			
+			//this.gv.setBuffer(this.cam.renderFrame());
 			
 			//Try to draw the next frame
 			Canvas frame = null;
@@ -103,5 +104,13 @@ public class GameProgram extends Thread {
 	
 	public void setRunning(boolean s){
 		this.running = s;
+	}
+	
+	public void draw(Canvas canvas){
+		cam.renderFrame(canvas);
+		Log.d("prog", "xx:"+xx);
+		this.xx += 0.05;
+		this.yy += 0.05;
+		cam.setLocation(this.xx,this.yy);
 	}
 }

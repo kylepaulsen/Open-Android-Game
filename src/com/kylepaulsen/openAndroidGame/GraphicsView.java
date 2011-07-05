@@ -28,6 +28,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * 
@@ -48,18 +49,32 @@ public class GraphicsView extends SurfaceView implements Callback {
 	private SurfaceHolder graphicsHolder;
 	//Game loop and thread.
 	private GameProgram prog;
+	//save context
+	private Context context;
+	
+	private Paint p;
 	
 	//temp
 	private int x = 0;
 	
 	public GraphicsView(Context context) {
 		super(context);
+		this.context = context;
+		
 		prog = new GameProgram(this, context);
 		
 		graphicsHolder = this.getHolder();
 		graphicsHolder.addCallback(this);
-
+		
+		Paint p = new Paint();
+		p.setStyle(Paint.Style.FILL);
+		p.setColor(Color.WHITE);
+		this.p = p;
+		
 		cFrame = new Canvas();
+		cBuffer = Bitmap.createBitmap(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, Bitmap.Config.ARGB_8888);
+        cFrame.setBitmap(cBuffer);
+        cFrame.drawRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, p);
 		
 		//keeps the screen on while playing the game.
 		this.setKeepScreenOn(true);
@@ -92,24 +107,13 @@ public class GraphicsView extends SurfaceView implements Callback {
 	//Here is the main drawing method. 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
-		
-		Paint p = new Paint();
-		p.setStyle(Paint.Style.FILL);
-		p.setColor(Color.WHITE);
-		
-		if(cBuffer == null){
-			//if the buffer is new, set it up and set it to draw with the cFrame.
-			//ARGB_8888 means each pixel uses 4 bytes.
-			cBuffer = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
-	        cFrame.setBitmap(cBuffer);
-	        cFrame.drawRect(0, 0, canvas.getWidth(),canvas.getHeight(), p);
-		}
-		
+		super.onDraw(canvas);	
 		
 		//draw the current frame buffer.
 		//not sure what or how I'm going to use a buffer for yet. Maybe backgrounds?
 		canvas.drawBitmap(cBuffer, 0, 0, null);	
+		
+		prog.draw(canvas);
 		
 		//Clear canvas. Remember that surfaceviews do not clean
 		//the canvas on each call to this method.
