@@ -63,7 +63,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 		cFrame = new Canvas();
 		
 		// initialize a player --XC July2
-		Player player = new Player(Color.GREEN);
+		//Player player = new Player(Color.GREEN);
 		
 		//keeps the screen on while playing the game.
 		this.setKeepScreenOn(true);

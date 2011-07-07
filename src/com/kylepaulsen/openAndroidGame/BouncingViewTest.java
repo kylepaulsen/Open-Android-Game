@@ -6,6 +6,7 @@
 package com.kylepaulsen.openAndroidGame;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
@@ -15,10 +16,15 @@ public class BouncingViewTest extends View{
 	
 	private Player player;
 	
+	
 	public BouncingViewTest(Context context){
 		super(context);
 		
-		player = new Player(Color.GREEN);
+		//player = new Player(Color.GREEN);
+		player = new Player(BitmapFactory.decodeResource(getResources(), 
+				R.drawable.mario), 50,50);
+		
+
 		
 		//enable touch mode
 		this.setFocusableInTouchMode(true);
@@ -26,11 +32,19 @@ public class BouncingViewTest extends View{
 	
 	   @Override
 	   protected void onDraw(Canvas canvas) {
-	      // Draw the components
-
-	      player.draw(canvas);
 
 	      
+	      //draw many Tiles
+	      for (int i =0; i<10; ++i){
+	    	  for (int j=0; j<8; ++j){
+	    		Tile tile = new Tile(BitmapFactory.decodeResource(getResources(), 
+	    				R.drawable.grass), 50*i, 50*j);
+	    		tile.draw(canvas);  
+	    	  }	    		  
+	      }
+	      
+	      // Draw a single player
+	      player.draw(canvas);
 	      // Update the position of the ball, including collision detection and reaction.
 	      player.moveWithCollisionDetection();
 
@@ -58,17 +72,17 @@ public class BouncingViewTest extends View{
 	      float currentX = event.getX();
 	      float currentY = event.getY();
 	      
-	      if (player.speedX>0 && currentX<player.x) {
-	    	  player.speedX = - player.speedX;
+	      if (player.getSpeedX()>0 && currentX<player.getX()) {
+	    	  player.setSpeedX (- player.getSpeedX());
 	      } 
-	      if (player.speedX<0 && currentX>player.x+ player.width) {
-	    	  player.speedX = - player.speedX;
+	      if (player.getSpeedX()<0 && currentX>player.getX()+ player.getWidth()) {
+	    	  player.setSpeedX(- player.getSpeedX());
 	      } 
-	      if (player.speedY>0 && currentY<player.y) {
-	    	  player.speedY = - player.speedY;
+	      if (player.getSpeedY()>0 && currentY<player.getY()) {
+	    	  player.setSpeedY (- player.getSpeedY());
 	      } 
-	      if (player.speedY<0 && currentY>player.y+player.width) {
-	    	  player.speedY = - player.speedY;
+	      if (player.getSpeedY()<0 && currentY>player.getY()+player.getHeight()) {
+	    	  player.setSpeedY (- player.getSpeedY());
 	      } 
 
 	      return true;  // Event handled
