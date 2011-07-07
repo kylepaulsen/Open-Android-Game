@@ -21,9 +21,11 @@ package com.kylepaulsen.openAndroidGame;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -47,8 +49,8 @@ public class GraphicsView extends SurfaceView implements Callback {
 	private SurfaceHolder graphicsHolder;
 	//Game loop and thread.
 	private GameProgram prog;
-	
-
+//
+	private Player player;
 	
 	//temp
 	private int x = 0;
@@ -62,8 +64,10 @@ public class GraphicsView extends SurfaceView implements Callback {
 
 		cFrame = new Canvas();
 		
-		// initialize a player --XC July2
-		//Player player = new Player(Color.GREEN);
+//		
+		player = new Player(BitmapFactory.decodeResource(getResources(), 
+				R.drawable.mario), 50,50);
+		
 		
 		//keeps the screen on while playing the game.
 		this.setKeepScreenOn(true);
@@ -126,6 +130,20 @@ public class GraphicsView extends SurfaceView implements Callback {
 		canvas.drawRect(x, 0, x+50, 50, p);
 		x++;	
 		
+	      //draw many Tiles
+
+	      for (int i =0; i<10; ++i){
+	    	  for (int j=0; j<8; ++j){
+	    		Tile tile = new Tile(BitmapFactory.decodeResource(getResources(), 
+	    				R.drawable.grass), 50*i, 50*j);
+	    		tile.draw(canvas);  
+	    	  }	    		  
+	      }
+//
+		//player.draw(canvas);
+		player.moveWithCollisionDetection();
+		player.draw(canvas);
+		
 
 	}
 	
@@ -140,5 +158,28 @@ public class GraphicsView extends SurfaceView implements Callback {
 	}
 
 	
-	
+	   // touch input handler, just for test
+	   @Override
+	   public boolean onTouchEvent(MotionEvent event) {
+	      float currentX = event.getX();
+	      float currentY = event.getY();
+	      
+	      if (player.getSpeedX()>0 && currentX<player.getX()) {
+	    	  player.setSpeedX (- player.getSpeedX());
+	      } 
+	      if (player.getSpeedX()<0 && currentX>player.getX()+ player.getWidth()) {
+	    	  player.setSpeedX(- player.getSpeedX());
+	      } 
+	      if (player.getSpeedY()>0 && currentY<player.getY()) {
+	    	  player.setSpeedY (- player.getSpeedY());
+	      } 
+	      if (player.getSpeedY()<0 && currentY>player.getY()+player.getHeight()) {
+	    	  player.setSpeedY (- player.getSpeedY());
+	      } 
+
+	      return true;  // Event handled
+	   }
+	   
 }
+	
+

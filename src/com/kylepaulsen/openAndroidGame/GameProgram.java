@@ -20,6 +20,7 @@
 package com.kylepaulsen.openAndroidGame;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.location.Criteria;
 import android.location.Location;
@@ -58,6 +59,7 @@ public class GameProgram extends Thread {
 		//tile the world with sprites
 		cam = new Camera(gv);
 		cam.loadWorld(world);
+
 	}
 
 	@Override
@@ -73,17 +75,7 @@ public class GameProgram extends Thread {
 			
 			
 			//Try to draw the next frame
-			Canvas frame = null;
-			try{
-				frame = gv.getHolder().lockCanvas();
-				synchronized(gv.getHolder()){
-					gv.onDraw(frame);
-				}
-			}finally{
-				if(frame != null){
-					gv.getHolder().unlockCanvasAndPost(frame);
-				}
-			}
+			draw();
 			
 			//Sleep between frames...
 			sleepFor = ticks - (System.currentTimeMillis() - startTime);
@@ -97,6 +89,21 @@ public class GameProgram extends Thread {
 			}catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	private void draw(){
+		Canvas frame = null;
+		try{
+			frame = gv.getHolder().lockCanvas();
+			synchronized(gv.getHolder()){
+				gv.onDraw(frame);
+			}
+		}finally{
+			if(frame != null){
+				gv.getHolder().unlockCanvasAndPost(frame);
 			}
 		}
 	}

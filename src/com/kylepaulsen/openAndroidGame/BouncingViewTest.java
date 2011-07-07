@@ -1,7 +1,9 @@
-/* BouncingViewTest.java -- class for testing a new view
+/* THIS CLASS IS OUTDATED. JUST FOR TESTING PURPOSE
+ * BouncingViewTest.java -- class for testing a new view
  * 
  * @author Xiaolong Cheng
  */
+
 
 package com.kylepaulsen.openAndroidGame;
 
@@ -35,6 +37,7 @@ public class BouncingViewTest extends View{
 
 	      
 	      //draw many Tiles
+
 	      for (int i =0; i<10; ++i){
 	    	  for (int j=0; j<8; ++j){
 	    		Tile tile = new Tile(BitmapFactory.decodeResource(getResources(), 
@@ -42,6 +45,7 @@ public class BouncingViewTest extends View{
 	    		tile.draw(canvas);  
 	    	  }	    		  
 	      }
+		 
 	      
 	      // Draw a single player
 	      player.draw(canvas);
@@ -51,7 +55,7 @@ public class BouncingViewTest extends View{
 	  
 	      // Delay
 	      try {  
-	         Thread.sleep(30);  
+	         Thread.sleep(40);  
 	      } catch (InterruptedException e) { }
 	      
 	      invalidate();  // Force a re-draw
