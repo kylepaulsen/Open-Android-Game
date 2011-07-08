@@ -51,6 +51,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 	private GameProgram prog;
 //
 	private Player player;
+	private PlayerAnimated playerAm;
 	
 	//temp
 	private int x = 0;
@@ -67,6 +68,11 @@ public class GraphicsView extends SurfaceView implements Callback {
 //		
 		player = new Player(BitmapFactory.decodeResource(getResources(), 
 				R.drawable.mario), 50,50);
+		playerAm = new PlayerAnimated(BitmapFactory.decodeResource(getResources(), 
+				R.drawable.walk),
+				10,50,
+				30,47,
+				5,5);
 		
 		
 		//keeps the screen on while playing the game.
@@ -130,20 +136,24 @@ public class GraphicsView extends SurfaceView implements Callback {
 		canvas.drawRect(x, 0, x+50, 50, p);
 		x++;	
 		
-	      //draw many Tiles
+	      
+		//draw many Tiles, for testing purpose
 
-	      for (int i =0; i<10; ++i){
-	    	  for (int j=0; j<8; ++j){
-	    		Tile tile = new Tile(BitmapFactory.decodeResource(getResources(), 
-	    				R.drawable.grass), 50*i, 50*j);
-	    		tile.draw(canvas);  
-	    	  }	    		  
-	      }
-//
+//	      for (int i =0; i<10; ++i){
+//	    	  for (int j=0; j<8; ++j){
+//	    		Tile tile = new Tile(BitmapFactory.decodeResource(getResources(), 
+//	    				R.drawable.grass), 50*i, 50*j);
+//	    		tile.draw(canvas);  
+//	    	  }	    		  
+//	      }
+
 		//player.draw(canvas);
 		player.moveWithCollisionDetection();
+		//player.UpdateLocation();
 		player.draw(canvas);
 		
+		playerAm.update(System.currentTimeMillis());
+		playerAm.draw(canvas);
 
 	}
 	
@@ -157,8 +167,10 @@ public class GraphicsView extends SurfaceView implements Callback {
 		this.cFrame = b;
 	}
 
+
+	/*FUNCTIONS BELOW ARE TEMP, MAY BE ALTERED LATER*/
 	
-	   // touch input handler, just for test
+	// touch input handler, just for test
 	   @Override
 	   public boolean onTouchEvent(MotionEvent event) {
 	      float currentX = event.getX();
@@ -178,6 +190,14 @@ public class GraphicsView extends SurfaceView implements Callback {
 	      } 
 
 	      return true;  // Event handled
+	   }
+	   
+		// Called back when the view is first created or its size changes.
+	   @Override
+	   public void onSizeChanged(int w, int h, int oldW, int oldH) {
+	      // Set the movement bounds for the ball
+	      player.xMax = w-1;
+	      player.yMax = h-1;
 	   }
 	   
 }

@@ -53,13 +53,13 @@ public class Player {
 	}
 	
 
-	/* function to keep the player in bound.
-	 * random implementation.
+	/* update the location,
+	 * and keep the player in bound.
 	*/
 	public void moveWithCollisionDetection(){
 		// get new (x, y) position
-		x += speedX;
-		y += speedY;
+		x = x+ speedX;
+		y = y+ speedY;
 		
 		// detect collision on edge of screen
 		if (x+width >xMax){
@@ -76,8 +76,13 @@ public class Player {
 		} else if (y < yMin) {
 			speedY= -speedY;
 			y = yMin;
-		}
-		
+		}		
+	}
+	
+	// another updating method
+	public void UpdateLocation(){
+		x = x+speedX;
+		y = y+speedY;
 	}
 	
 	public void draw(Canvas canvas){

@@ -14,7 +14,8 @@ public final class R {
         public static final int grass=0x7f020000;
         public static final int icon=0x7f020001;
         public static final int mario=0x7f020002;
-        public static final int world_map=0x7f020003;
+        public static final int walk=0x7f020003;
+        public static final int world_map=0x7f020004;
     }
     public static final class layout {
         public static final int main=0x7f030000;
