@@ -1,7 +1,13 @@
+/* BaseTiles.java - Class for loading and displaying just the tiles that show up.
+ * 
+ * Copyright © 2011 Open-Android-Game Group
+ * Please see the file COPYING in this
+ * distribution for license terms.
+ */
+
 package com.kylepaulsen.openAndroidGame;
 
 import java.util.Vector;
-
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -30,6 +36,7 @@ public class BaseTiles {
 	//local tile extent dimension consts:
 	//32
 	private int TILE_WIDTH = 55, TILE_HEIGHT = 55;
+	//private int TILE_WIDTH = 32, TILE_HEIGHT = 32;
 	
 	//private int BUFFER_PADDING = 1, BUFFER_SHIFT = 4;
 	private int BUFFER_PADDING = 5, BUFFER_SHIFT = 10;

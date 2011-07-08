@@ -1,3 +1,10 @@
+/* Tile.java - Class for describing tiles.
+ * 
+ * Copyright © 2011 Open-Android-Game Group
+ * Please see the file COPYING in this
+ * distribution for license terms.
+ */
+
 package com.kylepaulsen.openAndroidGame;
 
 import android.graphics.Bitmap;

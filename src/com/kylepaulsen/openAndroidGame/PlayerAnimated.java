@@ -1,10 +1,8 @@
 /* PlayerAnimated.java - Class for animated sprite.
  * 
- *  @author Xiaolong Cheng
- * Copyright (c) Kyle Paulsen
+ * Copyright © 2011 Open-Android-Game Group
  * Please see the file COPYING in this
  * distribution for license terms.
- * 
  */
 
 package com.kylepaulsen.openAndroidGame;
