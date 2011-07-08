@@ -37,11 +37,11 @@ import android.widget.Toast;
 public class GameProgram extends Thread {
 	private GraphicsView gv;
 	private boolean running = false;
-	private Camera cam;
+	//private Camera cam;
+	private BaseTiles base_tiles;
 	private World world;
 	private LocationTask locTask; 
 	private long currentSeed;
-	private double xx=0.0,yy=0.0;
 	
 	private double latitude, longitude; 
 	
@@ -58,7 +58,8 @@ public class GameProgram extends Thread {
 		world.generateWorld();
 		
 		//tile the world with sprites
-		this.cam = new Camera(gv, world, 0.1, 0.0);
+		//this.cam = new Camera(gv, world, 0.1, 0.0);
+		this.base_tiles = new BaseTiles(world);
 	}
 
 	@Override
@@ -67,11 +68,23 @@ public class GameProgram extends Thread {
 		long startTime;
 		long sleepFor;
 		
+		int i = 0, l = 0;
+		
 		while(running){
 			
 			//Next frames' Game Logic and stuff goes here.
 			startTime = System.currentTimeMillis();
 			//this.gv.setBuffer(this.cam.renderFrame());
+			
+			base_tiles.moveLocation(5,4);
+			if(i == 0) {
+				l = (l + 1) % 4;
+				int t = 50 + l;
+				//base_tiles.setLocationWorld(t, t);
+				Log.d("tile", "tile: " + t);
+			}
+			i = (i + 1) % 50;
+			
 			
 			//Try to draw the next frame
 			Canvas frame = null;
@@ -107,10 +120,7 @@ public class GameProgram extends Thread {
 	}
 	
 	public void draw(Canvas canvas){
-		cam.renderFrame(canvas);
-		Log.d("prog", "xx:"+xx);
-		this.xx += 0.05;
-		this.yy += 0.05;
-		cam.setLocation(this.xx,this.yy);
+		//cam.renderFrame(canvas);
+		base_tiles.render(canvas);
 	}
 }

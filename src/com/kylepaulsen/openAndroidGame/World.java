@@ -22,6 +22,7 @@ package com.kylepaulsen.openAndroidGame;
 import java.util.Random;
 
 import android.content.Context;
+import android.util.Log;
 
 /*
  * This class will be in charge of generating random worlds based off of
@@ -63,7 +64,11 @@ public class World {
 		 * 
 		 * 
 		 */
-		
+		for(int x=0; x<1000; ++x){
+			int r = this.ran.nextInt(Constants.WORLD_SIZE);
+			int c = this.ran.nextInt(Constants.WORLD_SIZE);
+			this.worldArr[r][c] = this.ran.nextInt(7)+1;
+		}
 		
 		
 	}

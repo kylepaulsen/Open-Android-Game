@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
         Constants.WINDOW_HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
         Constants.WINDOW_WIDTH = getWindowManager().getDefaultDisplay().getWidth();
         
-        //Kyle's android screen is 480x320
+        //Kyle's android screen is 480x800
         Log.d("Main", "screen dimentions: "+Constants.WINDOW_WIDTH+", "+Constants.WINDOW_HEIGHT);
         
         gameView = new GraphicsView(this);

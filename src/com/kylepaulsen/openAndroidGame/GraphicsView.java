@@ -72,9 +72,9 @@ public class GraphicsView extends SurfaceView implements Callback {
 		this.p = p;
 		
 		cFrame = new Canvas();
-		cBuffer = Bitmap.createBitmap(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, Bitmap.Config.ARGB_8888);
-        cFrame.setBitmap(cBuffer);
-        cFrame.drawRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, p);
+		//cBuffer = Bitmap.createBitmap(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, Bitmap.Config.ARGB_8888);
+        //cFrame.setBitmap(cBuffer);
+        //cFrame.drawRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, p);
 		
 		//keeps the screen on while playing the game.
 		this.setKeepScreenOn(true);
@@ -111,8 +111,9 @@ public class GraphicsView extends SurfaceView implements Callback {
 		
 		//draw the current frame buffer.
 		//not sure what or how I'm going to use a buffer for yet. Maybe backgrounds?
-		canvas.drawBitmap(cBuffer, 0, 0, null);	
+		//canvas.drawBitmap(cBuffer, 0, 0, null);	
 		
+		canvas.drawColor(0xFF000000);
 		prog.draw(canvas);
 		
 		//Clear canvas. Remember that surfaceviews do not clean

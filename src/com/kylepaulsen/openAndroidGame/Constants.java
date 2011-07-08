@@ -27,7 +27,7 @@ public final class Constants {
 	//Base Game Constants
 	public final static int GAME_TARGET_FPS = 20;
 	//World Region Size
-	public final static int WORLD_SIZE = 500;
+	public final static int WORLD_SIZE = 200;
 	//World Tile Size
 	public final static int WORLD_TILE_SIZE = 32;
 	//Camera Default Move Speed
