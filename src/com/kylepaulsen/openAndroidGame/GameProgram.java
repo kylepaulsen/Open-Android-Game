@@ -58,7 +58,6 @@ public class GameProgram extends Thread {
 		world.generateWorld();
 		
 		//tile the world with sprites
-		//this.cam = new Camera(gv, world, 0.1, 0.0);
 		this.base_tiles = new BaseTiles(world);
 	}
 
@@ -74,17 +73,6 @@ public class GameProgram extends Thread {
 			
 			//Next frames' Game Logic and stuff goes here.
 			startTime = System.currentTimeMillis();
-			//this.gv.setBuffer(this.cam.renderFrame());
-			
-			base_tiles.moveLocation(5,4);
-			if(i == 0) {
-				l = (l + 1) % 4;
-				int t = 50 + l;
-				//base_tiles.setLocationWorld(t, t);
-				Log.d("tile", "tile: " + t);
-			}
-			i = (i + 1) % 50;
-			
 			
 			//Try to draw the next frame
 			Canvas frame = null;
@@ -120,7 +108,6 @@ public class GameProgram extends Thread {
 	}
 	
 	public void draw(Canvas canvas){
-		//cam.renderFrame(canvas);
 		base_tiles.render(canvas);
 	}
 }
