@@ -138,10 +138,9 @@ public class GraphicsView extends SurfaceView implements Callback {
 //	    	  }	    		  
 //	      }
 
-		//player.draw(canvas);
 		player.moveWithCollisionDetection();
-		//player.UpdateLocation();
-		player.draw(canvas);
+
+		//player.draw(canvas);
 		
 		playerAm.update(System.currentTimeMillis());
 		playerAm.draw(canvas);
@@ -180,6 +179,9 @@ public class GraphicsView extends SurfaceView implements Callback {
 	    	  player.setSpeedY (- player.getSpeedY());
 	      } 
 
+	      // handle the animated player
+	      playerAm.setDest(currentX, currentY);
+	      
 	      return true;  // Event handled
 	   }
 	   
