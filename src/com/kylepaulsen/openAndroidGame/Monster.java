@@ -7,24 +7,23 @@
 
 package com.kylepaulsen.openAndroidGame;
 
+/* @date July09
+ * @author Xiaolong
+ */
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
 import java.lang.Math;
 
-/*
- *  @author Xiaolong
- *  part of the code is inspired from an online tutorial
- *  http://obviam.net/index.php/sprite-animation-with-android/
- *  
- */
 
-public class PlayerAnimated {
+public class Monster {
 	private Bitmap bitmap;		// the animation sequence
 	private Rect sourceRect;	// the rectangle to be drawn from the animation bitmap
-	private int frameNr;		// number of frames in animation
-	private int currentFrame;	// the current frame
+	private int frameNrX;		// number of frames in animation
+	private int frameNrY;
+	private int currentFrameX;	// the current frame
+	private int currentFrameY;
 	
 	/*Note that this is not the game FPS but the walking FPS.*/
 	private long frameTicker;	// the time of the last frame update
@@ -42,20 +41,23 @@ public class PlayerAnimated {
 	private float destX, destY;
 	
 	
-	public PlayerAnimated(Bitmap bitmap, int x, int y, 
-			 int fps, int frameCount ){
+	public Monster(Bitmap bitmap, int x, int y, 
+			int fps, 
+			int frameCountX, int frameCountY ){
 		
 		this.bitmap = bitmap;
-		this.x =x;
+		this.x =x; //initial location (x,y)
 		this.y =y;
-		currentFrame =0;
-		frameNr = frameCount;
+		currentFrameX =0;
+		currentFrameY =0;
+		frameNrX = frameCountX;
+		frameNrY = frameCountY;
 		
 		/* the cutting method depend on the 
 		 * source picture used here
 		*/
-		spriteWidth  = bitmap.getWidth()/frameCount;
-		spriteHeight = bitmap.getHeight();
+		spriteWidth  = bitmap.getWidth()/frameCountX;
+		spriteHeight = bitmap.getHeight()/frameCountY;
 		
 		sourceRect = new Rect(0,0,spriteWidth,spriteHeight);
 		framePeriod = 1000/fps;
@@ -70,14 +72,29 @@ public class PlayerAnimated {
 		//firstly, update the sprite image
 		if (gameTime > frameTicker + framePeriod){
 			frameTicker = gameTime;// set current update time
-			currentFrame++; //increment frame
-			if (currentFrame>=frameNr){
-				currentFrame =0;
+			currentFrameX++; //increment frame
+			if (currentFrameX>=frameNrX){
+				currentFrameX =0;
 			}
 			
 		}
-		// define the rectangle to cut out sprite
-		this.sourceRect.left = currentFrame*spriteWidth;
+		/* define the rectangle to cut out sprite
+		 * and update the correct frame
+		*/
+		if(this.speedX>0) {
+			currentFrameY =2;
+		}
+		else if (this.speedX<0) {
+			currentFrameY =1;
+		}
+		else { // if move vertically
+			if (speedY<0) currentFrameY= 3;
+			else currentFrameY =0;
+		}
+		
+		this.sourceRect.top = currentFrameY*spriteHeight;
+		this.sourceRect.bottom = this.sourceRect.top+spriteHeight;		
+		this.sourceRect.left = currentFrameX*spriteWidth;
 		this.sourceRect.right = this.sourceRect.left+spriteWidth;
 		
 		//then, update location
@@ -135,3 +152,4 @@ public class PlayerAnimated {
 		this.y =y;
 	}
 }
+

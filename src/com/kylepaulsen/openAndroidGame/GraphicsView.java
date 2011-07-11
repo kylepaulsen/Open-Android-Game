@@ -47,6 +47,8 @@ public class GraphicsView extends SurfaceView implements Callback {
 	private Player player;
 	private PlayerAnimated playerAm;
 	
+	private Monster monster;
+	
 	//temp
 	private int x = 0;
 	
@@ -73,9 +75,15 @@ public class GraphicsView extends SurfaceView implements Callback {
 				R.drawable.mario), 50,50);
 		playerAm = new PlayerAnimated(BitmapFactory.decodeResource(getResources(), 
 				R.drawable.walk),
-				10,50,
-				30,47,
-				5,5);
+				10,50,//initial location
+				5,
+				5);
+		
+		monster =  new Monster(BitmapFactory.decodeResource(getResources(), 
+				R.drawable.worm2),
+				160,100,//initial location
+				4,
+				4,4);
 		
 		
 		//keeps the screen on while playing the game.
@@ -139,11 +147,13 @@ public class GraphicsView extends SurfaceView implements Callback {
 //	      }
 
 		player.moveWithCollisionDetection();
-
 		//player.draw(canvas);
 		
 		playerAm.update(System.currentTimeMillis());
 		playerAm.draw(canvas);
+		
+		monster.update(System.currentTimeMillis());
+		monster.draw(canvas);
 
 	}
 	
@@ -180,7 +190,8 @@ public class GraphicsView extends SurfaceView implements Callback {
 	      } 
 
 	      // handle the animated player
-	      playerAm.setDest(currentX, currentY);
+	     // playerAm.setDest(currentX, currentY);
+	      monster.setDest(currentX, currentY);
 	      
 	      return true;  // Event handled
 	   }
