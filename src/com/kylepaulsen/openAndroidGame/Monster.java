@@ -17,8 +17,8 @@ import android.graphics.Rect;
 import java.lang.Math;
 
 
-public class Monster {
-	private Bitmap bitmap;		// the animation sequence
+public class Monster extends WorldEnt {
+//	private Bitmap bitmap;		// the animation sequence
 	private Rect sourceRect;	// the rectangle to be drawn from the animation bitmap
 	private int frameNrX;		// number of frames in animation
 	private int frameNrY;
@@ -41,11 +41,9 @@ public class Monster {
 	private float destX, destY;
 	
 	
-	public Monster(Bitmap bitmap, int x, int y, 
-			int fps, 
-			int frameCountX, int frameCountY ){
-		
-		this.bitmap = bitmap;
+	public Monster(Bitmap bitmap, int x, int y, int fps, int frameCountX, int frameCountY ){
+		super(bitmap);
+		//this.bitmap = bitmap;
 		this.x =x; //initial location (x,y)
 		this.y =y;
 		currentFrameX =0;
@@ -103,8 +101,8 @@ public class Monster {
 	
 	public void updateLocation(){
 		
-		this.x = this.x + speedX;		
-		this.y = this.y + speedY;
+		//this.x = this.x + speedX;		
+		//this.y = this.y + speedY;
 		
 		// when it's close enough, stop moving
 		if (Math.abs(this.destX-(this.x+0.5*this.spriteWidth))<10 ||

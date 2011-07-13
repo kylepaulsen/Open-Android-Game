@@ -93,8 +93,8 @@ public class GameProgram extends Thread {
 		this.running = s;
 	}
 	
-	public void draw(Canvas canvas){
+	public void draw(Canvas canvas, int x, int y){
 		base_tiles.render(canvas);
-		base_tiles.moveLocation(5, 7);
+		base_tiles.moveLocation(x, y);
 	}
 }

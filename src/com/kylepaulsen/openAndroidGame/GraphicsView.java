@@ -50,7 +50,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 	private Monster monster;
 	
 	//temp
-	private int x = 0;
+	private int x = 0, y = 0;
 	
 	public GraphicsView(Context context) {
 		super(context);
@@ -81,7 +81,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 		
 		monster =  new Monster(BitmapFactory.decodeResource(getResources(), 
 				R.drawable.worm2),
-				160,100,//initial location
+				(Constants.WINDOW_WIDTH/2)-16,(Constants.WINDOW_HEIGHT/2)-16,//initial location
 				4,
 				4,4);
 		
@@ -121,7 +121,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 		//canvas.drawBitmap(cBuffer, 0, 0, null);	
 		
 		canvas.drawColor(0xFF000000);
-		prog.draw(canvas);
+		prog.draw(canvas, x, y);
 		
 		//Clear canvas. Remember that surfaceviews do not clean
 		//the canvas on each call to this method.
@@ -131,9 +131,9 @@ public class GraphicsView extends SurfaceView implements Callback {
 		//cFrame.drawRect(x, 0, x+50, 50, p);
 		
 		//draw directly to canvas
-		p.setColor(Color.RED);
-		canvas.drawRect(x, 0, x+50, 50, p);
-		x++;	
+		//p.setColor(Color.RED);
+		//canvas.drawRect(x, 0, x+50, 50, p);
+		//x++;	
 		
 	      
 		//draw many Tiles, for testing purpose
@@ -192,6 +192,14 @@ public class GraphicsView extends SurfaceView implements Callback {
 	      // handle the animated player
 	     // playerAm.setDest(currentX, currentY);
 	      monster.setDest(currentX, currentY);
+	      
+	      if(event.getAction() == MotionEvent.ACTION_UP){
+	    	  x = 0;
+	    	  y = 0;
+	      }else{
+	    	  x = (int)((currentX - (Constants.WINDOW_WIDTH/2))/(Constants.WINDOW_WIDTH/14));
+	    	  y = (int)((currentY - (Constants.WINDOW_HEIGHT/2))/(Constants.WINDOW_HEIGHT/14));
+	      }
 	      
 	      return true;  // Event handled
 	   }
