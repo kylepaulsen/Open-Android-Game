@@ -9,5 +9,9 @@
 *.swp
 *.out
 
-# ignore entire bin folder
+# ignore generated folders
 /bin/
+/gen/
+
+# ignore eclipse files
+.classpath

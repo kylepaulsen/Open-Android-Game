@@ -46,7 +46,7 @@ public class GameProgram extends Thread {
 		world.generateWorld();
 		
 		//tile the world with sprites
-		this.base_tiles = new BaseTiles(world);
+		this.base_tiles = new BaseTiles(context, world);
 	}
 
 	@Override
