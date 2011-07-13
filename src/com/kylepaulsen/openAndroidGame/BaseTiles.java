@@ -14,10 +14,12 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 public class BaseTiles {
-	
+	private Context context;
 	private Canvas canvas;
 	private Bitmap buffer_cur, buffer_off;
 	private boolean dirty;
@@ -35,19 +37,22 @@ public class BaseTiles {
 	
 	//local tile extent dimension consts:
 	//32
-	private int TILE_WIDTH = 55, TILE_HEIGHT = 55;
+	private int TILE_WIDTH = 30, TILE_HEIGHT = 22;
 	//private int TILE_WIDTH = 32, TILE_HEIGHT = 32;
 	
 	//private int BUFFER_PADDING = 1, BUFFER_SHIFT = 4;
-	private int BUFFER_PADDING = 5, BUFFER_SHIFT = 10;
+	private int BUFFER_PADDING = 2, BUFFER_SHIFT = 5;
+
+	private Bitmap tile_bitmaps[4];
 	
-	public BaseTiles(World world){
+	public BaseTiles(Context context, World world){
 		this.dirty = true;
+		this.context = context;
 		this.buffer_cur = Bitmap.createBitmap(TILE_WIDTH * Constants.WORLD_TILE_SIZE, TILE_HEIGHT * Constants.WORLD_TILE_SIZE, Bitmap.Config.ARGB_8888);
 		this.buffer_off = Bitmap.createBitmap(TILE_WIDTH * Constants.WORLD_TILE_SIZE, TILE_HEIGHT * Constants.WORLD_TILE_SIZE, Bitmap.Config.ARGB_8888);
 		
 		this.canvas = new Canvas(this.buffer_cur);
-		this.local_pixel_extent = new Rect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+		this.local_pixel_extent = new Rect(0, 0, Constants.WINDOW_WIDTH * 2 / 3, Constants.WINDOW_HEIGHT * 2 / 3);
 		this.paint_pixel_extent = new Rect(this.local_pixel_extent);
 		this.local_pixel_extent.offset(320, 320);
 		
@@ -58,6 +63,15 @@ public class BaseTiles {
 		
 		this.load_new_tiles = false;
 		drawInitialTiles();
+		loadTileBitmaps();
+	}
+
+	private void loadTileBitmaps() {
+		Resources rsc = context.getResources();
+		tile_bitmaps[0] = BitmapFactory.decodeResource(rsc, R.drawable.water1);
+		tile_bitmaps[1] = BitmapFactory.decodeResource(rsc, R.drawable.sand);
+		tile_bitmaps[2] = BitmapFactory.decodeResource(rsc, R.drawable.dirt);
+		tile_bitmaps[3] = BitmapFactory.decodeResource(rsc, R.drawable.grass);
 	}
 	
 	public void render(Canvas c){
@@ -169,7 +183,10 @@ public class BaseTiles {
 		int ts = Constants.WORLD_TILE_SIZE;
 		
 		Paint p = new Paint();
+		i = cell_type % 4;
+		canvas.drawBitmap(tile_bitmaps[i], x*ts, y*ts, null);
 		
+		/*
 		// TODO: call paintCell(c, cell_type) to paint actual graphics
 		int color = 0;
 		if(cell_type == 0) color = 0xFFFFFFFF;
@@ -187,6 +204,7 @@ public class BaseTiles {
 		p.setStyle(Paint.Style.STROKE);
 		p.setColor(0xFF005500);
 		canvas.drawRect(x*ts, y*ts, x*ts+ts, y*ts+ts, p);
+		*/
 	}
 	
 	/*
