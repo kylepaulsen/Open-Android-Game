@@ -54,7 +54,7 @@ public class BaseTiles {
 		
 		this.canvas = new Canvas(this.buffer_cur);
 		this.local_pixel_extent = new Rect(0, 0, Constants.WINDOW_WIDTH * 2 / 3, Constants.WINDOW_HEIGHT * 2 / 3);
-		this.paint_pixel_extent = new Rect(this.local_pixel_extent);
+		this.paint_pixel_extent = new Rect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 		this.local_pixel_extent.offset(320, 320);
 		
 		this.local_tile_extent = new Rect(0, 0, 0, 0);
