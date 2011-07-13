@@ -10,6 +10,7 @@ package com.kylepaulsen.openAndroidGame;
 import java.util.Vector;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -43,7 +44,7 @@ public class BaseTiles {
 	//private int BUFFER_PADDING = 1, BUFFER_SHIFT = 4;
 	private int BUFFER_PADDING = 2, BUFFER_SHIFT = 5;
 
-	private Bitmap tile_bitmaps[4];
+	private Bitmap tile_bitmaps[];
 	
 	public BaseTiles(Context context, World world){
 		this.dirty = true;
@@ -62,12 +63,13 @@ public class BaseTiles {
 		this.layer = world.getWorldArr();
 		
 		this.load_new_tiles = false;
-		drawInitialTiles();
 		loadTileBitmaps();
+		drawInitialTiles();
 	}
 
 	private void loadTileBitmaps() {
 		Resources rsc = context.getResources();
+		tile_bitmaps = new Bitmap[4];
 		tile_bitmaps[0] = BitmapFactory.decodeResource(rsc, R.drawable.water1);
 		tile_bitmaps[1] = BitmapFactory.decodeResource(rsc, R.drawable.sand);
 		tile_bitmaps[2] = BitmapFactory.decodeResource(rsc, R.drawable.dirt);
@@ -181,6 +183,7 @@ public class BaseTiles {
 	public void paintLocalCell(Canvas c, Rect g_extent, int x, int y) {
 		int cell_type = getLocalCellType(g_extent, x, y);
 		int ts = Constants.WORLD_TILE_SIZE;
+		int i;
 		
 		Paint p = new Paint();
 		i = cell_type % 4;
