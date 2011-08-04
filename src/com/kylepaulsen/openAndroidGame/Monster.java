@@ -1,4 +1,4 @@
-/* PlayerAnimated.java - Class for animated sprite.
+/* Monster.java - Class for a monster.
  * 
  * Copyright © 2011 Open-Android-Game Group
  * Please see the file COPYING in this
@@ -7,9 +7,6 @@
 
 package com.kylepaulsen.openAndroidGame;
 
-/* @date July09
- * @author Xiaolong
- */
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;

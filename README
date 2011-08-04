@@ -6,5 +6,54 @@ Xiaolong Cheng
 Max Strater
 
 This is our Open Android Game.
-It it built on the Android 2.2 Platform.
-Title and other details pending. 
+It it built on the Android 2.1 Platform.
+
+BUILD INSTRUCTIONS
+========================================
+
+It really helps if you have an android phone - this is an android app after 
+all.
+
+* First you need the android SDK. You can get it here:
+  http://developer.android.com/sdk/index.html
+  Download the correct one for your system.
+
+* This guide is very detailed about how to set things up:
+  http://developer.android.com/sdk/installing.html
+  Make sure you follow steps 1-4 carefully as they are the most important.
+  On step 4 make sure you check SDK Platform Android 2.1
+
+* Import the project into Eclipse. 
+  File->Import General->"Existing Projects Into Workspace"
+  
+* At this point you should be able to build (Run -> Run).
+  If you are getting tons of errors then eclipse isn't looking in the 
+  correct place for some libraries. You will need to find the correct
+  JARs and add them to the list of Libraries for the project.
+  Add them here: 
+  Project->Properties    then... "Java Build Path" on the left
+  and then the libraries tab near the top.
+  The required libraries are:
+    * Android.jar in the android 7 directory somewhere in the sdk directory.
+    * JRE System Library
+    
+* If you build and run in the emulator right away, the app will probably crash 
+  due to insufficient memory. This is why it's important to run using your own 
+  device. Even if the emulator doesn't crash, it will run extremely slow to the 
+  point where the game is unplayable. Use this guide to set up your device to 
+  run the build:
+  http://developer.android.com/guide/developing/device.html#setting-up
+  You don't need to do step 1 of this guide as it was already done.
+  
+  
+ABOUT
+========================================
+
+So far this game is a top down 2D scroller - as in the player has a bird's
+eye view of his character and the world around him. This game is to become 
+somewhat of a exploration/creation/survival game. Hopefully, in the future, 
+all 3 of these themes will be an integral part of this game. Also hopefully,
+the game will have a title. One other thing we aim to do is procedurally 
+generate all maps (and maybe other things) based on the player's 
+GPS coordinates. All other ideas can be read about in our repository wiki.  
+  
