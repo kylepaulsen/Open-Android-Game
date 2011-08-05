@@ -39,7 +39,7 @@ all.
     
 * If you build and run in the emulator right away, the app will probably crash 
   due to insufficient memory. This is why it's important to run using your own 
-  device. Even if the emulator doesn't crash, it will run extremely slow to the 
+  device. Even if the emulator doesn't crash, it might run extremely slow to a 
   point where the game is unplayable. Use this guide to set up your device to 
   run the build:
   http://developer.android.com/guide/developing/device.html#setting-up
