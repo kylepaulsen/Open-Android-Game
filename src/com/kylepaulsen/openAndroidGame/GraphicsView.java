@@ -71,9 +71,8 @@ public class GraphicsView extends SurfaceView implements Callback {
         //cFrame.setBitmap(cBuffer);
         //cFrame.drawRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, p);
 		
-		player = new Player(BitmapFactory.decodeResource(getResources(), 
-				R.drawable.mario), 50,50);
-		playerAm = new PlayerAnimated(BitmapFactory.decodeResource(getResources(), 
+		player = new Player(prog);
+		/*playerAm = new PlayerAnimated(BitmapFactory.decodeResource(getResources(), 
 				R.drawable.walk),
 				10,50,//initial location
 				5,
@@ -83,7 +82,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 				R.drawable.worm2),
 				(Constants.WINDOW_WIDTH/2)-16,(Constants.WINDOW_HEIGHT/2)-16,//initial location
 				4,
-				4,4);
+				4,4);*/
 		
 		
 		//keeps the screen on while playing the game.
@@ -146,14 +145,16 @@ public class GraphicsView extends SurfaceView implements Callback {
 //	    	  }	    		  
 //	      }
 
-		player.moveWithCollisionDetection();
+		//player.moveWithCollisionDetection();
 		//player.draw(canvas);
 		
-		playerAm.update(System.currentTimeMillis());
-		playerAm.draw(canvas);
+		//playerAm.update(System.currentTimeMillis());
+		//playerAm.draw(canvas);
 		
-		monster.update(System.currentTimeMillis());
-		monster.draw(canvas);
+		//monster.update(System.currentTimeMillis());
+		//monster.draw(canvas);
+		player.update(System.currentTimeMillis());
+		player.draw(canvas);
 
 	}
 	
@@ -176,6 +177,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 	      float currentX = event.getX();
 	      float currentY = event.getY();
 	      
+	      /*
 	      if (player.getSpeedX()>0 && currentX<player.getX()) {
 	    	  player.setSpeedX (- player.getSpeedX());
 	      } 
@@ -187,11 +189,11 @@ public class GraphicsView extends SurfaceView implements Callback {
 	      } 
 	      if (player.getSpeedY()<0 && currentY>player.getY()+player.getHeight()) {
 	    	  player.setSpeedY (- player.getSpeedY());
-	      } 
+	      } */
 
 	      // handle the animated player
 	     // playerAm.setDest(currentX, currentY);
-	      monster.setDest(currentX, currentY);
+	      player.setDest(currentX, currentY);
 	      
 	      if(event.getAction() == MotionEvent.ACTION_UP){
 	    	  x = 0;
@@ -208,8 +210,8 @@ public class GraphicsView extends SurfaceView implements Callback {
 	   @Override
 	   public void onSizeChanged(int w, int h, int oldW, int oldH) {
 	      // Set the movement bounds for the ball
-	      player.xMax = w-1;
-	      player.yMax = h-1;
+	     // player.xMax = w-1;
+	     // player.yMax = h-1;
 	   }
 	   
 }

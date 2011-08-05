@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.content.Context;
 import android.content.res.Resources;
@@ -224,6 +225,17 @@ public class BaseTiles {
 			//return (x+y)%8;
 		}else{
 			return 0;
+		}
+	}
+	
+	public Point getCenterLocation(){
+		int w_half = TILE_WIDTH / 2;
+		int h_half = TILE_HEIGHT / 2;
+		
+		synchronized(buffer_cur) {
+			int x = (int)Math.floor(local_pixel_extent.exactCenterX()/32)-w_half+(int)Math.floor(global_tile_extent.exactCenterX());
+			int y = (int)Math.floor(local_pixel_extent.exactCenterY()/32)-h_half+(int)Math.floor(global_tile_extent.exactCenterY());
+			return new Point(x, y);
 		}
 	}
 	

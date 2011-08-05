@@ -9,6 +9,7 @@ package com.kylepaulsen.openAndroidGame;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -30,12 +31,13 @@ public class GameProgram extends Thread {
 	private World world;
 	private LocationTask locTask; 
 	private long currentSeed;
+	private Context context;
 	
 	private double latitude, longitude; 
 	
 	public GameProgram(GraphicsView view, Context context){
 		this.gv = view;
-		
+		this.context = context;
 		this.locTask = new LocationTask(context);
 		this.locTask.init();
 		
@@ -96,5 +98,11 @@ public class GameProgram extends Thread {
 	public void draw(Canvas canvas, int x, int y){
 		base_tiles.render(canvas);
 		base_tiles.moveLocation(x, y);
+		Point p = base_tiles.getCenterLocation();
+		Log.d("gameprog", p.x+" "+p.y);
+	}
+	
+	public Context getContext(){
+		return this.context;
 	}
 }

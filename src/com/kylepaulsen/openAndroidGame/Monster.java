@@ -1,4 +1,4 @@
-/* Monster.java - Class for a monster.
+/* PlayerAnimated.java - Class for animated sprite.
  * 
  * Copyright © 2011 Open-Android-Game Group
  * Please see the file COPYING in this
@@ -7,6 +7,9 @@
 
 package com.kylepaulsen.openAndroidGame;
 
+/* @date July09
+ * @author Xiaolong
+ */
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -15,7 +18,7 @@ import java.lang.Math;
 
 
 public class Monster extends WorldEnt {
-//	private Bitmap bitmap;		// the animation sequence
+	private Bitmap bitmap;		// the animation sequence
 	private Rect sourceRect;	// the rectangle to be drawn from the animation bitmap
 	private int frameNrX;		// number of frames in animation
 	private int frameNrY;
@@ -39,8 +42,8 @@ public class Monster extends WorldEnt {
 	
 	
 	public Monster(Bitmap bitmap, int x, int y, int fps, int frameCountX, int frameCountY ){
-		super(bitmap);
-		//this.bitmap = bitmap;
+		//super(bitmap);
+		this.bitmap = bitmap;
 		this.x =x; //initial location (x,y)
 		this.y =y;
 		currentFrameX =0;

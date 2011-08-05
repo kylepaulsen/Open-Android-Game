@@ -13,11 +13,15 @@ import android.graphics.Rect;
 
 public abstract class WorldEnt {
 	
+	//i dont know what goes in here yet.
+	
+	/*
 	protected Bitmap bitmap;
 	
 	public WorldEnt(Bitmap bitmap){
 		this.bitmap = bitmap;
 	}
+	*/
 	
 	public void draw(Canvas canvas, Rect rect){
 		
