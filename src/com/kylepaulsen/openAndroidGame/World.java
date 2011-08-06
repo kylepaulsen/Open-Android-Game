@@ -46,16 +46,10 @@ public class World {
 		
 		//access biome vars to generate map....
 		
-		/*
-		 * 0 = grass
-		 * 1 = water
-		 * 
-		 * 
-		 */
 		for(int x=0; x<1000; ++x){
 			int r = this.ran.nextInt(Constants.WORLD_SIZE);
 			int c = this.ran.nextInt(Constants.WORLD_SIZE);
-			this.worldArr[r][c] = this.ran.nextInt(7)+1;
+			this.worldArr[r][c] = this.ran.nextInt(4);
 		}
 		
 		

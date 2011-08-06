@@ -71,10 +71,13 @@ public class BaseTiles {
 	private void loadTileBitmaps() {
 		Resources rsc = context.getResources();
 		tile_bitmaps = new Bitmap[4];
-		tile_bitmaps[0] = BitmapFactory.decodeResource(rsc, R.drawable.water1);
-		tile_bitmaps[1] = BitmapFactory.decodeResource(rsc, R.drawable.sand);
-		tile_bitmaps[2] = BitmapFactory.decodeResource(rsc, R.drawable.dirt);
-		tile_bitmaps[3] = BitmapFactory.decodeResource(rsc, R.drawable.grass);
+		tile_bitmaps[Constants.TILE_GRASS_ID] = BitmapFactory.decodeResource(rsc, R.drawable.grass);
+		tile_bitmaps[Constants.TILE_DIRT_ID] = BitmapFactory.decodeResource(rsc, R.drawable.dirt);
+		tile_bitmaps[Constants.TILE_SAND_ID] = BitmapFactory.decodeResource(rsc, R.drawable.sand);
+		tile_bitmaps[Constants.TILE_WATER_ID] = BitmapFactory.decodeResource(rsc, R.drawable.water1);
+		
+		
+		
 	}
 	
 	public void render(Canvas c){
@@ -187,7 +190,7 @@ public class BaseTiles {
 		int i;
 		
 		Paint p = new Paint();
-		i = cell_type % 4;
+		i = cell_type;// % 4;
 		canvas.drawBitmap(tile_bitmaps[i], x*ts, y*ts, null);
 		
 		/*
@@ -219,12 +222,12 @@ public class BaseTiles {
 		int y = tile_y + g_extent.top;
 		
 		if(x > -1 && x < Constants.WORLD_SIZE && y > -1 && y < Constants.WORLD_SIZE){
-			if(layer[x][y] == 0)
-				return 1;
+			//if(layer[x][y] == 0)
+				//return 1;
 			return layer[x][y];
 			//return (x+y)%8;
 		}else{
-			return 0;
+			return Constants.TILE_WATER_ID;
 		}
 	}
 	
@@ -235,6 +238,14 @@ public class BaseTiles {
 		synchronized(buffer_cur) {
 			int x = (int)Math.floor(local_pixel_extent.exactCenterX()/32)-w_half+(int)Math.floor(global_tile_extent.exactCenterX());
 			int y = (int)Math.floor(local_pixel_extent.exactCenterY()/32)-h_half+(int)Math.floor(global_tile_extent.exactCenterY());
+			return new Point(x, y);
+		}
+	}
+	
+	public Point getPixelsInTile(){
+		synchronized(buffer_cur) {
+			int x = (int)(local_pixel_extent.exactCenterX()%32);
+			int y = (int)(local_pixel_extent.exactCenterY()%32);
 			return new Point(x, y);
 		}
 	}

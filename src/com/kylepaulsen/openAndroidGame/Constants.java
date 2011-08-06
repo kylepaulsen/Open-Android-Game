@@ -20,4 +20,13 @@ public final class Constants {
 	public final static int WORLD_TILE_SIZE = 32;
 	//Camera Default Move Speed
 	public final static int DEFAULT_CAM_MOVE_SPEED = 1;
+	
+	//Player Constants
+	public final static int PLAYER_BOUNDING_BOX_RADIUS = 15;
+	
+	//World Tile Constants
+	public final static int TILE_GRASS_ID = 0;
+	public final static int TILE_DIRT_ID = 1;
+	public final static int TILE_SAND_ID = 2;
+	public final static int TILE_WATER_ID = 3;
 }

@@ -19,6 +19,9 @@ import java.lang.Math;
 
 
 public class Player extends WorldEnt {
+	private final int SPRITE_OFFSET_X = -4;
+	private final int SPRITE_OFFSET_Y = 20;
+	
 	private Bitmap bitmap;		// the animation sequence
 	private Rect sourceRect;	// the rectangle to be drawn from the animation bitmap
 	private int frameNrX;		// number of frames in animation
@@ -38,8 +41,8 @@ public class Player extends WorldEnt {
 	private int y;				// the Y coordinate of the object (top left of the image)
     
 	//for motion use, July09
-	private static int SPEED = 3;
-	private int speedX, speedY;
+	//private static int SPEED = 3;
+	//private int speedX, speedY;
 	private float destX, destY;
 	
 	private GameProgram gp;
@@ -64,8 +67,8 @@ public class Player extends WorldEnt {
 		framePeriod = 1000/4; //4 is the fps
 		frameTicker = 1;
 		
-		this.speedX = 0;
-		this.speedY = 0;
+		//this.speedX = 0;
+		//this.speedY = 0;
 	}
 
 	public void update(long gameTime){
@@ -110,6 +113,7 @@ public class Player extends WorldEnt {
 		//this.updateLocation();
 	}
 	
+	/*
 	public void updateLocation(){
 		
 		//this.x = this.x + speedX;		
@@ -122,11 +126,11 @@ public class Player extends WorldEnt {
 			this.setSpeed(0, 0);	
 		}
 		
-	}
+	}*/
 	
 	// draw method of animated player
 	public void draw (Canvas canvas){
-		Rect destRect = new Rect(this.x, this.y, (int)(this.x+(spriteWidth)*1.3), (int)(this.y+(spriteHeight)*1.3));
+		Rect destRect = new Rect(this.x+SPRITE_OFFSET_X, this.y+SPRITE_OFFSET_Y, (int)(this.x+(spriteWidth)*1.3)+SPRITE_OFFSET_X, (int)(this.y+(spriteHeight)*1.3)+SPRITE_OFFSET_Y);
 		canvas.drawBitmap(bitmap, sourceRect, destRect, null);
 	}
 	
@@ -170,11 +174,11 @@ public class Player extends WorldEnt {
 		*/
 	}
 		
-	
+	/*
 	public void setSpeed(int sx, int sy){
 		this.speedX =sx;
 		this.speedY =sy;
-	}
+	}*/
 	
 	public int getX(){
 		return x;

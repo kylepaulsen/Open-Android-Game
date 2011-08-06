@@ -49,7 +49,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 	
 	private Monster monster;
 	
-	//temp
+	//player movement vars.
 	private int x = 0, y = 0;
 	
 	public GraphicsView(Context context) {
@@ -121,6 +121,7 @@ public class GraphicsView extends SurfaceView implements Callback {
 		
 		canvas.drawColor(0xFF000000);
 		prog.draw(canvas, x, y);
+			
 		
 		//Clear canvas. Remember that surfaceviews do not clean
 		//the canvas on each call to this method.
@@ -155,7 +156,15 @@ public class GraphicsView extends SurfaceView implements Callback {
 		//monster.draw(canvas);
 		player.update(System.currentTimeMillis());
 		player.draw(canvas);
-
+		
+		/*
+		p.setColor(0xFFFF0000);
+		canvas.drawRect((Constants.WINDOW_WIDTH/2)-1, (Constants.WINDOW_HEIGHT/2)-1, (Constants.WINDOW_WIDTH/2)+1, (Constants.WINDOW_HEIGHT/2)+1, p);
+		canvas.drawRect((Constants.WINDOW_WIDTH/2)-23, (Constants.WINDOW_HEIGHT/2)-23, (Constants.WINDOW_WIDTH/2)-21, (Constants.WINDOW_HEIGHT/2)-21, p);
+		canvas.drawRect((Constants.WINDOW_WIDTH/2)+23, (Constants.WINDOW_HEIGHT/2)-23, (Constants.WINDOW_WIDTH/2)+21, (Constants.WINDOW_HEIGHT/2)-21, p);
+		canvas.drawRect((Constants.WINDOW_WIDTH/2)-23, (Constants.WINDOW_HEIGHT/2)+23, (Constants.WINDOW_WIDTH/2)-21, (Constants.WINDOW_HEIGHT/2)+21, p);
+		canvas.drawRect((Constants.WINDOW_WIDTH/2)+23, (Constants.WINDOW_HEIGHT/2)+23, (Constants.WINDOW_WIDTH/2)+21, (Constants.WINDOW_HEIGHT/2)+21, p);
+		*/
 	}
 	
 	//buffer getter
