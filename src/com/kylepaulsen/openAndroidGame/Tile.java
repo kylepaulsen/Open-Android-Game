@@ -23,7 +23,7 @@ public class Tile {
 	}
 	
 	public Bitmap getBitmap() {
-		return bitmap;
+		return this.bitmap;
 	}
 	
 	public void setBitmap(Bitmap bitmap){

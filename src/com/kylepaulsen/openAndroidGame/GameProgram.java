@@ -38,7 +38,7 @@ public class GameProgram extends Thread {
 	private Context context;
 	private Resources res;
 	
-	private HashMap<Integer, Tile> tileLib;
+	private HashMap<Byte, Tile> tileLib;
 	
 	private double latitude, longitude; 
 	
@@ -51,7 +51,7 @@ public class GameProgram extends Thread {
 		
 		this.currentSeed = this.locTask.makeSeedFromLocation();
 		
-		tileLib = new HashMap<Integer, Tile>();
+		tileLib = new HashMap<Byte, Tile>();
 		tileLib.put(Constants.TILE_GRASS_ID, new Tile(Constants.TILE_GRASS_ID, BitmapFactory.decodeResource(this.res, R.drawable.grass), true));
 		tileLib.put(Constants.TILE_DIRT_ID, new Tile(Constants.TILE_DIRT_ID, BitmapFactory.decodeResource(this.res, R.drawable.dirt), true));
 		tileLib.put(Constants.TILE_SAND_ID, new Tile(Constants.TILE_SAND_ID, BitmapFactory.decodeResource(this.res, R.drawable.sand), true));
@@ -62,7 +62,7 @@ public class GameProgram extends Thread {
 		world.generateWorld();
 		
 		//tile the world with sprites
-		this.base_tiles = new BaseTiles(context, world);
+		this.base_tiles = new BaseTiles(tileLib, world);
 	}
 
 	@Override

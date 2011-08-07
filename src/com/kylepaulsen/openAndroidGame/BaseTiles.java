@@ -7,6 +7,7 @@
 
 package com.kylepaulsen.openAndroidGame;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import android.graphics.Bitmap;
@@ -21,8 +22,8 @@ import android.content.res.Resources;
 import android.util.Log;
 
 public class BaseTiles {
-	private Context context;
 	private Canvas canvas;
+	private HashMap<Byte, Tile> tileLib;
 	private Bitmap buffer_cur, buffer_off;
 	private boolean dirty;
 	private Rect paint_pixel_extent;
@@ -35,7 +36,7 @@ public class BaseTiles {
 	private Thread loading;
 	private volatile boolean loading_new_tiles;
 	
-	private int[][] layer;
+	private byte[][] layer;
 	
 	//local tile extent dimension consts:
 	//32
@@ -45,11 +46,11 @@ public class BaseTiles {
 	//private int BUFFER_PADDING = 1, BUFFER_SHIFT = 4;
 	private int BUFFER_PADDING = 2, BUFFER_SHIFT = 5;
 
-	private Bitmap tile_bitmaps[];
+	//private Bitmap tile_bitmaps[];
 	
-	public BaseTiles(Context context, World world){
+	public BaseTiles(HashMap<Byte, Tile> tileLib, World world){
+		this.tileLib = tileLib;
 		this.dirty = true;
-		this.context = context;
 		this.buffer_cur = Bitmap.createBitmap(TILE_WIDTH * Constants.WORLD_TILE_SIZE, TILE_HEIGHT * Constants.WORLD_TILE_SIZE, Bitmap.Config.ARGB_8888);
 		this.buffer_off = Bitmap.createBitmap(TILE_WIDTH * Constants.WORLD_TILE_SIZE, TILE_HEIGHT * Constants.WORLD_TILE_SIZE, Bitmap.Config.ARGB_8888);
 		
@@ -64,10 +65,11 @@ public class BaseTiles {
 		this.layer = world.getWorldArr();
 		
 		this.load_new_tiles = false;
-		loadTileBitmaps();
+		//loadTileBitmaps();
 		drawInitialTiles();
 	}
 
+	/*
 	private void loadTileBitmaps() {
 		Resources rsc = context.getResources();
 		tile_bitmaps = new Bitmap[4];
@@ -78,7 +80,7 @@ public class BaseTiles {
 		
 		
 		
-	}
+	}*/
 	
 	public void render(Canvas c){
 		synchronized(buffer_cur) {
@@ -185,13 +187,11 @@ public class BaseTiles {
 	}
 	
 	public void paintLocalCell(Canvas c, Rect g_extent, int x, int y) {
-		int cell_type = getLocalCellType(g_extent, x, y);
+		byte cell_type = getLocalCellType(g_extent, x, y);
 		int ts = Constants.WORLD_TILE_SIZE;
-		int i;
 		
-		Paint p = new Paint();
-		i = cell_type;// % 4;
-		canvas.drawBitmap(tile_bitmaps[i], x*ts, y*ts, null);
+		if(cell_type > 0)
+			canvas.drawBitmap(tileLib.get(cell_type).getBitmap(), x*ts, y*ts, null);
 		
 		/*
 		// TODO: call paintCell(c, cell_type) to paint actual graphics
@@ -217,7 +217,7 @@ public class BaseTiles {
 	/*
 	 * Given the tile coords of the coord views
 	 */
-	public int getLocalCellType(Rect g_extent, int tile_x, int tile_y) {
+	public byte getLocalCellType(Rect g_extent, int tile_x, int tile_y) {
 		int x = tile_x + g_extent.left;
 		int y = tile_y + g_extent.top;
 		

@@ -21,7 +21,7 @@ import android.util.Log;
 
 public class World {
 	private Context con;
-	private int worldArr[][];
+	private byte worldArr[][];
 	private long worldSeed;
 	private double lon, lat;
 	private Random ran;
@@ -31,7 +31,13 @@ public class World {
 		this.con = context;
 		this.worldSeed = seed;
 		this.ran = new Random(this.worldSeed);
-		worldArr = new int[Constants.WORLD_SIZE][Constants.WORLD_SIZE];
+		worldArr = new byte[Constants.WORLD_SIZE][Constants.WORLD_SIZE];
+		
+		for(int i=0; i<Constants.WORLD_SIZE; ++i){
+			for(int j=0; j<Constants.WORLD_SIZE; ++j){
+				worldArr[i][j] = 1;
+			}
+		}
 		
 		this.lat = latitude;
 		this.lon = longitude;
@@ -49,13 +55,13 @@ public class World {
 		for(int x=0; x<1000; ++x){
 			int r = this.ran.nextInt(Constants.WORLD_SIZE);
 			int c = this.ran.nextInt(Constants.WORLD_SIZE);
-			this.worldArr[r][c] = this.ran.nextInt(4);
+			this.worldArr[r][c] = (byte)(this.ran.nextInt(3)+2);
 		}
 		
 		
 	}
 	
-	public int[][] getWorldArr(){
+	public byte[][] getWorldArr(){
 		return this.worldArr;
 	}
 }

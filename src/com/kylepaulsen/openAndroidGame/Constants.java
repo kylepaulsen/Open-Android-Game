@@ -25,8 +25,9 @@ public final class Constants {
 	public final static int PLAYER_BOUNDING_BOX_RADIUS = 15;
 	
 	//World Tile Constants
-	public final static int TILE_GRASS_ID = 0;
-	public final static int TILE_DIRT_ID = 1;
-	public final static int TILE_SAND_ID = 2;
-	public final static int TILE_WATER_ID = 3;
+	public final static byte TILE_AIR_ID = 0;
+	public final static byte TILE_GRASS_ID = 1;
+	public final static byte TILE_DIRT_ID = 2;
+	public final static byte TILE_SAND_ID = 3;
+	public final static byte TILE_WATER_ID = 4;
 }
