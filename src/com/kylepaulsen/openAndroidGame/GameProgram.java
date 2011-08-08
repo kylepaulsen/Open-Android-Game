@@ -126,6 +126,7 @@ public class GameProgram extends Thread {
 	//returns a new dx dy in a point that is a safe movement that wont intersect
 	//something that is un-passable. THIS FUNCTION IS WAY TOO COMPLICATED!!! D:
 	public Point checkCollision(Point world_loc, Point tile_loc, int dx, int dy){
+		if(dx == 0 && dy == 0) return new Point(0, 0);
 		
 		Point top_l = new Point(world_loc.x, world_loc.y);
 		Point top_r = new Point(world_loc.x, world_loc.y);
@@ -161,8 +162,6 @@ public class GameProgram extends Thread {
 			//This is the value needed to JUST touch the side of the adjacent tile.
 			newDxDy.y = -tile_loc.y-Constants.PLAYER_BOUNDING_BOX_RADIUS+Constants.WORLD_TILE_SIZE;
 		}
-		
-		if(dx == 0 && dy == 0) return new Point(0, 0);
 		
 		//check for map limits:
 		if(top_l.x < 0){
