@@ -157,14 +157,14 @@ public class GraphicsView extends SurfaceView implements Callback {
 		player.update(System.currentTimeMillis());
 		player.draw(canvas);
 		
-		/**/
+		/*
 		p.setColor(0xFFFF0000);
 		canvas.drawRect((Constants.WINDOW_WIDTH/2)-1, (Constants.WINDOW_HEIGHT/2)-1, (Constants.WINDOW_WIDTH/2)+1, (Constants.WINDOW_HEIGHT/2)+1, p);
 		canvas.drawRect((Constants.WINDOW_WIDTH/2)-23, (Constants.WINDOW_HEIGHT/2)-23, (Constants.WINDOW_WIDTH/2)-21, (Constants.WINDOW_HEIGHT/2)-21, p);
 		canvas.drawRect((Constants.WINDOW_WIDTH/2)+23, (Constants.WINDOW_HEIGHT/2)-23, (Constants.WINDOW_WIDTH/2)+21, (Constants.WINDOW_HEIGHT/2)-21, p);
 		canvas.drawRect((Constants.WINDOW_WIDTH/2)-23, (Constants.WINDOW_HEIGHT/2)+23, (Constants.WINDOW_WIDTH/2)-21, (Constants.WINDOW_HEIGHT/2)+21, p);
 		canvas.drawRect((Constants.WINDOW_WIDTH/2)+23, (Constants.WINDOW_HEIGHT/2)+23, (Constants.WINDOW_WIDTH/2)+21, (Constants.WINDOW_HEIGHT/2)+21, p);
-		
+		*/
 	}
 	
 	//buffer getter
