@@ -58,6 +58,10 @@ public class World {
 			this.worldArr[r][c] = (byte)(this.ran.nextInt(3)+2);
 		}
 		
+		worldArr[3][3] = 4;
+		worldArr[3][4] = 4;
+		worldArr[4][3] = 4;
+		
 		
 	}
 	

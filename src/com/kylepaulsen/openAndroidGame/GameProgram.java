@@ -114,80 +114,242 @@ public class GameProgram extends Thread {
 		//the x and y vars are the movement vars for the player.
 		base_tiles.render(canvas);
 		
-		boolean go = true;
+		Point newDxDy;
 		
-		while(checkCollision(base_tiles.getCenterLocation(), base_tiles.getPixelsInTile(), x, y)){
-			--x;
-			--y;
-			if(x < 0){
-				x = 0;
-			}
-			if(y < 0){
-				y = 0;
-			}
-			if(x == 0 && y == 0){
-				go = false;
-				break;
-			}
+		newDxDy = checkCollision(base_tiles.getCenterLocation(), base_tiles.getPixelsInTile(), x, y);
+		
+		if(newDxDy.x != 0 || newDxDy.y != 0){
+			base_tiles.moveLocation(newDxDy.x, newDxDy.y);
 		}
-		
-		if(go){
-			base_tiles.moveLocation(x, y);
-		}
-		
-		/*
-		if(!checkCollision(base_tiles.getCenterLocation(), base_tiles.getPixelsInTile(), x, y)){
-			base_tiles.moveLocation(x, y);
-		}
-		*/
-		
-		//Point p = base_tiles.getPixelsInTile();
-		//Log.d("gameprog", p.x+" "+p.y);
 	}
 	
-	//returns true if player is colliding with something.
-	public boolean checkCollision(Point world_loc, Point tile_loc, int dx, int dy){
+	//returns a new dx dy in a point that is a safe movement that wont intersect
+	//something that is un-passable. THIS FUNCTION IS WAY TOO COMPLICATED!!! D:
+	public Point checkCollision(Point world_loc, Point tile_loc, int dx, int dy){
+		
 		Point top_l = new Point(world_loc.x, world_loc.y);
 		Point top_r = new Point(world_loc.x, world_loc.y);
 		Point bot_l = new Point(world_loc.x, world_loc.y);
 		Point bot_r = new Point(world_loc.x, world_loc.y);
 		
+		Point newDxDy = new Point(dx, dy);
+		
+		boolean limitX = false;
+		boolean limitY = false;
+		
+		//get block coords of bounding box points of player.
 		if(((tile_loc.x+dx)-Constants.PLAYER_BOUNDING_BOX_RADIUS) < 0){
 			top_l.x -= 1;
 			bot_l.x -= 1;
+			//This is the value needed to JUST touch the side of the adjacent tile.
+			newDxDy.x = Constants.PLAYER_BOUNDING_BOX_RADIUS-tile_loc.x;
 		}else if(((tile_loc.x+dx)+Constants.PLAYER_BOUNDING_BOX_RADIUS) >= Constants.WORLD_TILE_SIZE){
 			top_r.x += 1;
 			bot_r.x += 1;
+			//This is the value needed to JUST touch the side of the adjacent tile.
+			newDxDy.x = -tile_loc.x-Constants.PLAYER_BOUNDING_BOX_RADIUS+Constants.WORLD_TILE_SIZE;
 		}
-		
+
 		if(((tile_loc.y+dy)-Constants.PLAYER_BOUNDING_BOX_RADIUS) < 0){
 			top_l.y -= 1;
 			top_r.y -= 1;
-		}else if(((tile_loc.y+dy)+Constants.PLAYER_BOUNDING_BOX_RADIUS) >= Constants.WORLD_TILE_SIZE){
+			//This is the value needed to JUST touch the side of the adjacent tile.
+			newDxDy.y = Constants.PLAYER_BOUNDING_BOX_RADIUS-tile_loc.y;
+		}else if(((tile_loc.y+dy)+Constants.PLAYER_BOUNDING_BOX_RADIUS) > Constants.WORLD_TILE_SIZE){
 			bot_r.y += 1;
 			bot_l.y += 1;
+			//This is the value needed to JUST touch the side of the adjacent tile.
+			newDxDy.y = -tile_loc.y-Constants.PLAYER_BOUNDING_BOX_RADIUS+Constants.WORLD_TILE_SIZE;
 		}
 		
-		//Log.d("gameprog", top_l.x+" "+top_l.y);
+		if(dx == 0 && dy == 0) return new Point(0, 0);
 		
-		if(top_l.x < 0) return true;
-		if(top_l.y < 0) return true;
+		//check for map limits:
+		if(top_l.x < 0){
+			limitX = true;
+			top_l.x = 0;
+		}
+		if(top_l.y < 0){
+			limitY = true;
+			top_l.y = 0;
+		}
 		
-		if(top_r.x >= Constants.WORLD_SIZE) return true;
-		if(top_r.y < 0) return true;
+		if(top_r.x >= Constants.WORLD_SIZE){
+			limitX = true;
+			top_r.x = Constants.WORLD_SIZE-1;
+		}
+		if(top_r.y < 0){
+			limitY = true;
+			top_r.y = 0;
+		}
 		
-		if(bot_l.x < 0) return true;
-		if(bot_l.y >= Constants.WORLD_SIZE) return true;
+		if(bot_l.x < 0){
+			limitX = true;
+			bot_l.x = 0;
+		}
+		if(bot_l.y >= Constants.WORLD_SIZE){
+			limitY = true;
+			bot_l.y = Constants.WORLD_SIZE-1;
+		}
 		
-		if(bot_r.x >= Constants.WORLD_SIZE) return true;
-		if(bot_r.y >= Constants.WORLD_SIZE) return true;
+		if(bot_r.x >= Constants.WORLD_SIZE){
+			limitX = true;
+			bot_r.x = Constants.WORLD_SIZE-1;
+		}
+		if(bot_r.y >= Constants.WORLD_SIZE){
+			limitY = true;
+			bot_r.y = Constants.WORLD_SIZE-1;
+		}
 		
-		if(!tileLib.get(world.getWorldArr()[top_l.x][top_l.y]).isPassible()) return true;
-		if(!tileLib.get(world.getWorldArr()[top_r.x][top_r.y]).isPassible()) return true;
-		if(!tileLib.get(world.getWorldArr()[bot_l.x][bot_l.y]).isPassible()) return true;
-		if(!tileLib.get(world.getWorldArr()[bot_r.x][bot_r.y]).isPassible()) return true;
+		//do collision detection for bottom left corner of bounding box.
+		if(!tileLib.get(world.getWorldArr()[bot_l.x][bot_l.y]).isPassible()){
+			//heading south-east
+			if(dx >= 0 && dy > 0){
+				limitY = true;
+			}
+			//heading south-west
+			if(dx < 0 && dy > 0){
+				if(sideDetect(tile_loc.x-Constants.PLAYER_BOUNDING_BOX_RADIUS, tile_loc.y+Constants.PLAYER_BOUNDING_BOX_RADIUS, dx, dy) == 0){
+					limitY = true;
+				}else{
+					limitX = true;
+				}
+			}
+			//heading north-west
+			if(dx < 0 && dy <= 0){
+				limitX = true;
+			}
+		}
 		
-		return false;
+		//do collision detection for bottom right corner of bounding box.
+		if(!tileLib.get(world.getWorldArr()[bot_r.x][bot_r.y]).isPassible()){
+			//heading south-west
+			if(dx <= 0 && dy > 0){
+				limitY = true;
+			}
+			//heading south-east
+			if(dx > 0 && dy > 0){
+				if(sideDetect(tile_loc.x+Constants.PLAYER_BOUNDING_BOX_RADIUS, tile_loc.y+Constants.PLAYER_BOUNDING_BOX_RADIUS, dx, dy) == 0){
+					limitY = true;
+				}else{
+					limitX = true;
+				}
+			}
+			//heading north-east
+			if(dx > 0 && dy <= 0){
+				limitX = true;
+			}
+		}
+		
+		//do collision detection for top right corner of bounding box.
+		if(!tileLib.get(world.getWorldArr()[top_r.x][top_r.y]).isPassible()){
+			//heading north-west
+			if(dx <= 0 && dy < 0){
+				limitY = true;
+			}
+			//heading north-east
+			if(dx > 0 && dy < 0){
+				if(sideDetect(tile_loc.x+Constants.PLAYER_BOUNDING_BOX_RADIUS, tile_loc.y-Constants.PLAYER_BOUNDING_BOX_RADIUS, dx, dy) == 0){
+					limitY = true;
+				}else{
+					limitX = true;
+				}
+			}
+			//heading south-east
+			if(dx > 0 && dy >= 0){
+				limitX = true;
+			}
+		}
+		
+		//do collision detection for top left corner of bounding box.
+		if(!tileLib.get(world.getWorldArr()[top_l.x][top_l.y]).isPassible()){
+			//heading north-east
+			if(dx >= 0 && dy < 0){
+				limitY = true;
+			}
+			//heading north-west
+			if(dx < 0 && dy < 0){
+				if(sideDetect(tile_loc.x-Constants.PLAYER_BOUNDING_BOX_RADIUS, tile_loc.y-Constants.PLAYER_BOUNDING_BOX_RADIUS, dx, dy) == 0){
+					limitY = true;
+				}else{
+					limitX = true;
+				}
+			}
+			//heading south-west
+			if(dx < 0 && dy >= 0){
+				limitX = true;
+			}
+		}
+		
+		if(limitX) dx = newDxDy.x;
+		if(limitY) dy = newDxDy.y;
+		
+		return new Point(dx, dy);
+	}
+	
+	/* Helper function for collision detection. It tells you if you cross a 
+	// vertical tile line or a horizontal tile line first given the dy and dx
+	// as your direction. This is needed to catch a corner of an unpassable tile
+	// when you are running fast enough to hop over that corner between frames.
+	// return 0 for horizontal pass or 1 for vertical or otherwise. */
+	public int sideDetect(int sx, int sy, int dx, int dy){
+		//java's % operator behaves weird. Example: -2%32 = -2 NOT 30.
+		sx = sx % Constants.WORLD_TILE_SIZE;
+		sy = sy % Constants.WORLD_TILE_SIZE;
+		if(sx < 0) sx += Constants.WORLD_TILE_SIZE;
+		if(sy < 0) sy += Constants.WORLD_TILE_SIZE;
+		
+		//already hitting a side.
+		if(sx == 0) return 1;
+		if(sy == 0) return 0;
+		
+		float slope = ((float)dy)/dx;
+		
+		//heading south-east
+		if(dx >= 0 && dy >= 0){
+			int wall_dist = Constants.WORLD_TILE_SIZE-sx;
+			float y_diff = wall_dist*slope;
+			if(sy+y_diff > Constants.WORLD_TILE_SIZE){
+				return 0;
+			}else{
+				return 1;
+			}
+		}
+		
+		//heading north-east
+		if(dx >= 0 && dy < 0){
+			int wall_dist = Constants.WORLD_TILE_SIZE-sx;
+			float y_diff = wall_dist*slope;
+			if(sy+y_diff < 0){
+				return 0;
+			}else{
+				return 1;
+			}
+		}
+		
+		//heading south-west
+		if(dx < 0 && dy >= 0){
+			int wall_dist = sx;
+			float y_diff = wall_dist*slope;
+			if(sy-y_diff > Constants.WORLD_TILE_SIZE){
+				return 0;
+			}else{
+				return 1;
+			}
+		}
+		
+		//heading north-west
+		if(dx < 0 && dy < 0){
+			int wall_dist = sx;
+			float y_diff = wall_dist*slope;
+			if(sy-y_diff < 0){
+				return 0;
+			}else{
+				return 1;
+			}
+		}
+		
+		return 0;
 	}
 	
 	public Context getContext(){
