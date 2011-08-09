@@ -15,7 +15,7 @@ public final class Constants {
 	//Base Game Constants
 	public final static int GAME_TARGET_FPS = 20;
 	//World Region Size
-	public final static int WORLD_SIZE = 200;
+	public final static int WORLD_SIZE = 140;
 	//World Tile Size
 	public final static int WORLD_TILE_SIZE = 32;
 	//Camera Default Move Speed
@@ -30,4 +30,8 @@ public final class Constants {
 	public final static byte TILE_DIRT_ID = 2;
 	public final static byte TILE_SAND_ID = 3;
 	public final static byte TILE_WATER_ID = 4;
+	
+	//Generation Constants
+	public final static int GEN_SUFACE_ITERATIONS = 15;
+	
 }

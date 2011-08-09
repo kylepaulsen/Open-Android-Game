@@ -31,7 +31,7 @@ public class Biome {
 	
 	//This function will set a bunch of public vars to describe 
 	//the current biome for the world generator. 	
-	public void anazlyze(){
+	public float[] anazlyze(){
 		//get the corresponding pixel.
 		this.lonPxl = lonToPxlX(this.lon);
 		this.latPxl = latToPxlY(this.lat);
@@ -41,11 +41,11 @@ public class Biome {
 		decodeOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		
 		//get the pixel color in the world map.
-		//Bitmap world = BitmapFactory.decodeResource(con.getResources(), R.drawable.world_map, decodeOptions);
-		//int landColor = world.getPixel(this.lonPxl, this.latPxl);
-		//int red = Color.red(landColor);
-		//int green = Color.green(landColor);
-		//int blue = Color.blue(landColor);
+		Bitmap world = BitmapFactory.decodeResource(con.getResources(), R.drawable.world_map, decodeOptions);
+		int landColor = world.getPixel(this.lonPxl, this.latPxl);
+		int red = Color.red(landColor);
+		int green = Color.green(landColor);
+		int blue = Color.blue(landColor);
 		
 		
 		Toast.makeText(con, "looking for pxl: "+this.lonPxl+", "+this.latPxl, Toast.LENGTH_LONG).show();
@@ -53,8 +53,9 @@ public class Biome {
 		
 		//get hsv
 		float hsv[] = new float[3];
-		//Color.RGBToHSV(red, green, blue, hsv);
+		Color.RGBToHSV(red, green, blue, hsv);
 		
+		return hsv;
 		//now if the h in hsv is between certain ranges, we have a biome.
 		//we could also use r, g, b, s or v for something.
 	}

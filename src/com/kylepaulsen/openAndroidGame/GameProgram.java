@@ -63,6 +63,22 @@ public class GameProgram extends Thread {
 		
 		//tile the world with sprites
 		this.base_tiles = new BaseTiles(tileLib, world);
+		//base_tiles.setLocationWorld(-35, -27);
+		
+		/*boolean changed = false;
+		boolean try_again = false;
+		Point loc;
+		do{
+			loc = this.base_tiles.getCenterLocation();
+			try_again = false;
+			if(!tileLib.get(world.getWorldArr()[loc.x][loc.y]).isPassible()){
+				try_again = true;
+				changed = true;
+				++loc.x;
+			}
+			
+		}while(try_again);*/
+		//if(changed) base_tiles.setLocationWorld(loc.x, loc.y);
 	}
 
 	@Override
@@ -117,6 +133,9 @@ public class GameProgram extends Thread {
 		Point newDxDy;
 		
 		newDxDy = checkCollision(base_tiles.getCenterLocation(), base_tiles.getPixelsInTile(), x, y);
+		
+		//Point lol = base_tiles.getstuff();
+		//Log.d("stuff", lol.x+" "+lol.y);
 		
 		if(newDxDy.x != 0 || newDxDy.y != 0){
 			base_tiles.moveLocation(newDxDy.x, newDxDy.y);

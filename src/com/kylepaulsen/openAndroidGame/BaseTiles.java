@@ -57,11 +57,11 @@ public class BaseTiles {
 		this.canvas = new Canvas(this.buffer_cur);
 		this.local_pixel_extent = new Rect(0, 0, Constants.WINDOW_WIDTH * 2 / 3, Constants.WINDOW_HEIGHT * 2 / 3);
 		this.paint_pixel_extent = new Rect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-		this.local_pixel_extent.offset(320, 320);
+		//this.local_pixel_extent.offset(320, 320);
 		
 		this.local_tile_extent = new Rect(0, 0, 0, 0);
 		this.global_tile_extent = new Rect(0, 0, TILE_WIDTH, TILE_HEIGHT);
-		this.global_tile_extent.offsetTo(10, 10);
+		//this.global_tile_extent.offsetTo(10, 10);
 		this.layer = world.getWorldArr();
 		
 		this.load_new_tiles = false;
@@ -224,6 +224,7 @@ public class BaseTiles {
 		if(x > -1 && x < Constants.WORLD_SIZE && y > -1 && y < Constants.WORLD_SIZE){
 			//if(layer[x][y] == 0)
 				//return 1;
+			
 			return layer[x][y];
 			//return (x+y)%8;
 		}else{
@@ -236,18 +237,24 @@ public class BaseTiles {
 		int h_half = TILE_HEIGHT / 2;
 		
 		synchronized(buffer_cur) {
-			int x = (int)Math.floor(local_pixel_extent.exactCenterX()/32)-w_half+(int)Math.floor(global_tile_extent.exactCenterX());
-			int y = (int)Math.floor(local_pixel_extent.exactCenterY()/32)-h_half+(int)Math.floor(global_tile_extent.exactCenterY());
+			int x = (int)Math.floor(local_pixel_extent.exactCenterX()/Constants.WORLD_TILE_SIZE)-w_half+(int)Math.floor(global_tile_extent.exactCenterX());
+			int y = (int)Math.floor(local_pixel_extent.exactCenterY()/Constants.WORLD_TILE_SIZE)-h_half+(int)Math.floor(global_tile_extent.exactCenterY());
 			return new Point(x, y);
 		}
 	}
 	
 	public Point getPixelsInTile(){
 		synchronized(buffer_cur) {
-			int x = (int)(local_pixel_extent.exactCenterX()%32);
-			int y = (int)(local_pixel_extent.exactCenterY()%32);
+			int x = (int)(local_pixel_extent.exactCenterX()%Constants.WORLD_TILE_SIZE);
+			int y = (int)(local_pixel_extent.exactCenterY()%Constants.WORLD_TILE_SIZE);
 			return new Point(x, y);
 		}
+	}
+	
+	public Point getstuff(){
+		int x = local_pixel_extent.top;
+		int y = local_pixel_extent.left;
+		return new Point(x, y);
 	}
 	
 	private class TileLoader extends Thread{
