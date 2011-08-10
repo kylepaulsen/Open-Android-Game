@@ -10,10 +10,12 @@ package com.kylepaulsen.openAndroidGame;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener{
     
 	GraphicsView gameView;
 	/** Called when the activity is first created. */
@@ -42,4 +44,9 @@ public class MainActivity extends Activity {
         //test bouncing view
         //setContentView(new BouncingViewTest(this));
     }
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }
