@@ -7,7 +7,7 @@
     <uses-sdk android:minSdkVersion="7" />
 	<!-- android:debuggable forces app to run on phone... -->
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
-        <activity android:name=".MainActivity"
+        <activity android:name=".Home"
                   android:label="@string/app_name"
                   android:screenOrientation="landscape"
                   android:launchMode="singleInstance">
