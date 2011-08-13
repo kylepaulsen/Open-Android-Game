@@ -41,19 +41,22 @@ public class Biome {
 		decodeOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		
 		//get the pixel color in the world map.
-		Bitmap world = BitmapFactory.decodeResource(con.getResources(), R.drawable.world_map, decodeOptions);
-		int landColor = world.getPixel(this.lonPxl, this.latPxl);
-		int red = Color.red(landColor);
-		int green = Color.green(landColor);
-		int blue = Color.blue(landColor);
+
+		//THIS IS PROBLY CAUSING MEMORY TO RUN OUT ON SOME PHONES! NEED TO FIGURE OUT HOW TO GET BIOME 
+		//DATA FROM A SMALLER IMAGE OR ANOTHER WAY!!!
+		//Bitmap world = BitmapFactory.decodeResource(con.getResources(), R.drawable.world_map, decodeOptions);
+		//int landColor = world.getPixel(this.lonPxl, this.latPxl);
+		//int red = Color.red(landColor);
+		//int green = Color.green(landColor);
+		//int blue = Color.blue(landColor);
 		
 		
-		Toast.makeText(con, "looking for pxl: "+this.lonPxl+", "+this.latPxl, Toast.LENGTH_LONG).show();
+		//Toast.makeText(con, "looking for pxl: "+this.lonPxl+", "+this.latPxl, Toast.LENGTH_LONG).show();
 		//Toast.makeText(con, "Pxl rgb is: "+Color.red(landColor)+", "+Color.green(landColor)+", "+Color.blue(landColor), Toast.LENGTH_LONG).show();
 		
 		//get hsv
 		float hsv[] = new float[3];
-		Color.RGBToHSV(red, green, blue, hsv);
+		//Color.RGBToHSV(red, green, blue, hsv);
 		
 		return hsv;
 		//now if the h in hsv is between certain ranges, we have a biome.
